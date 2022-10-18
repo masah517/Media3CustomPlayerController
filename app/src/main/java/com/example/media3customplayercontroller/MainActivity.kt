@@ -21,8 +21,21 @@ class MainActivity : AppCompatActivity() {
         player = ExoPlayer.Builder(this).build()
         binding.playerView.player = this.player
 
-        val mediaItem = MediaItem.fromUri(Uri.parse("https://storage.googleapis.com/exoplayer-test-media-0/BigBuckBunny_320x180.mp4"))
+        val mediaItem =
+            MediaItem.fromUri(Uri.parse("https://storage.googleapis.com/exoplayer-test-media-0/BigBuckBunny_320x180.mp4"))
         player.setMediaItem(mediaItem)
+
+
+        // Bottom button setup to control player
+        binding.renderButton.setOnClickListener {
+            if (player.playWhenReady) {
+                binding.renderButton.text = "Play Video"
+                player.playWhenReady = false
+            } else {
+                binding.renderButton.text = "Pause Video"
+                player.playWhenReady = true
+            }
+        }
     }
 
     override fun onStart() {
